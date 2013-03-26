@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  user: 
+  date: 2013-03-26
+  attendance: 2013-03-26 06:46:28
+  leaving: 2013-03-26 06:46:28
+
+two:
+  user: 
+  date: 2013-03-26
+  attendance: 2013-03-26 06:46:28
+  leaving: 2013-03-26 06:46:28
