@@ -1,0 +1,2 @@
+module AttendanceManagementUsers::RegistrationsHelper
+end

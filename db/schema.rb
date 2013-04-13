@@ -11,7 +11,45 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130325214628) do
+ActiveRecord::Schema.define(:version => 20130412133059) do
+
+  create_table "attendance_management_users", :force => true do |t|
+    t.string   "email",                  :default => "", :null => false
+    t.string   "encrypted_password",     :default => "", :null => false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          :default => 0
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
+  end
+
+  add_index "attendance_management_users", ["email"], :name => "index_attendance_management_users_on_email", :unique => true
+  add_index "attendance_management_users", ["reset_password_token"], :name => "index_attendance_management_users_on_reset_password_token", :unique => true
+
+  create_table "attendance_times", :force => true do |t|
+    t.integer  "user_id"
+    t.date     "date"
+    t.time     "time"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "attendance_times", ["user_id"], :name => "index_attendance_times_on_user_id"
+
+  create_table "leaving_times", :force => true do |t|
+    t.integer  "user_id"
+    t.date     "date"
+    t.time     "time"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "leaving_times", ["user_id"], :name => "index_leaving_times_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "login",             :limit => 30, :default => "",    :null => false
@@ -49,16 +87,5 @@ ActiveRecord::Schema.define(:version => 20130325214628) do
     t.datetime "out_time"
     t.datetime "updated_on"
   end
-
-  create_table "work_hours", :force => true do |t|
-    t.integer  "user_id"
-    t.date     "date"
-    t.time     "attendance"
-    t.time     "leaving"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  add_index "work_hours", ["user_id"], :name => "index_work_hours_on_user_id"
 
 end

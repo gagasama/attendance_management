@@ -6,8 +6,25 @@ gem 'rails', '3.2.12'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 group :development, :test do
-gem 'sqlite3'
+  gem 'sqlite3'
+  gem 'rails-erd'
+  gem 'pry'
+  gem 'pry-doc'
+  gem 'pry-rails'
+  gem 'annotate'
 end
+
+group :test do
+  gem 'rspec-rails' 
+  gem "cucumber-rails", "~> 1.0", require: false
+  gem 'capybara'
+  gem 'spork'
+  gem 'factory_girl'
+  gem 'database_cleaner'
+  gem 'rb-fsevent'
+end
+
+gem 'devise'
 
 group :production do
 gem 'pg'

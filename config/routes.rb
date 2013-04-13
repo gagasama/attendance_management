@@ -1,7 +1,22 @@
 AttendanceManagement::Application.routes.draw do
 
-  get "user/index"
+  get "registrations/create"
 
+#  devise_for :attendance_management_users
+  devise_for :attendance_management_users, :controllers => {
+	  :sessions => "attendance_management_users/sessions",
+          :registrations => "attendance_management_users/registrations",
+          :passwords => "users/passwords"
+           }
+  get "user/index"
+  get "user/show"
+  post "user/regist_attendance_time"
+  post "user/regist_leaving_time"
+ 
+#  devise_scope :attendance_management_users do
+#    get "sign_in", :to => "devise/sessions#new"
+#    get "sign_up", :to => "devise/sessions#create"
+#  end
   # The priority is based upon order of creation:
   # first created -> highest priority.
   root :to => "user#index"
@@ -17,9 +32,7 @@ AttendanceManagement::Application.routes.draw do
   #   resources :products
 
   # Sample resource route with options:
-  #   resources :products do
-  #     member do
-  #       get 'short'
+  #   resources :products do #     member do #       get 'short'
   #       post 'toggle'
   #     end
   #
