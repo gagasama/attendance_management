@@ -64,13 +64,13 @@ ActiveRecord::Schema.define(:version => 20130412133059) do
     t.integer  "auth_source_id"
     t.datetime "created_on"
     t.datetime "updated_on"
-    t.string   "type"
+    t.string   "etype"
     t.string   "identity_url"
     t.string   "mail_notification",               :default => "",    :null => false
   end
 
   add_index "users", ["auth_source_id"], :name => "index_users_on_auth_source_id"
-  add_index "users", ["id", "type"], :name => "index_users_on_id_and_type"
+  add_index "users", ["id", "etype"], :name => "index_users_on_id_and_type"
 
   create_table "vyw_user_extensions", :force => true do |t|
     t.integer  "user_id",    :null => false

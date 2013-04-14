@@ -19,7 +19,7 @@ group :test do
   gem "cucumber-rails", "~> 1.0", require: false
   gem 'capybara'
   gem 'spork'
-  gem 'factory_girl'
+  gem 'factory_girl_rails'
   gem 'database_cleaner'
   gem 'rb-fsevent'
 end
