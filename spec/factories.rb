@@ -14,7 +14,7 @@ FactoryGirl.define do
     auth_source_id nil
     created_on "2012-02-14 10:51:54"
     updated_on "2012-10-26 20:25:14"
-    etype "User"
+    type "User"
     identity_url "https://www.google.com/accounts/o8/id?id=AItOawnl-8..."
     mail_notification "only_my_events"
   end
