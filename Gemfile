@@ -24,6 +24,7 @@ group :test do
   gem 'rb-fsevent'
 end
 
+gem 'factory_girl'
 gem 'devise'
 
 group :production do
