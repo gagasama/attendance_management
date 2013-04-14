@@ -2,11 +2,11 @@
 FactoryGirl.define do
   factory :user do
 
-    login "m-nakayama2"
+    login "m-nakayama"
     hashed_password "405c491450520898f266ab88d7420a7af7932d28"
     firstname "真琴"
     lastname "中山"
-    mail "m-nakayama2@vyw.jp"
+    mail "m-nakayama@vyw.jp"
     admin false
     status 1
     last_login_on "2012-10-26 20:25:14"
