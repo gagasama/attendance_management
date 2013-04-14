@@ -7,9 +7,7 @@ class UserController < ApplicationController
   end
 
   def show
-     
     unless @user = User.find_by_mail(current_user.email)
-      @user = ""
       flash.now[:notice] = "Redmineに入力されているemailアドレスが存在しません。"
       render new_attendance_management_user_registration 
     end

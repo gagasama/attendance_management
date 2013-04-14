@@ -21,7 +21,7 @@
 #
 
 class User < ActiveRecord::Base
-   alias_attribute :type, :etype 
+#   alias_attribute :type, :etype 
   
   def to_hash
     Hash[*self.map{ |i| [i.id, i]}.flatten]

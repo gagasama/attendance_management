@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 class AttendanceManagementUsers::RegistrationsController < Devise::RegistrationsController 
   def create
-   if @user = User.find_by_mail(params[:email])
+   if @user = User.find_by_mail(params[:attendance_management_user][:email])
       super
    else
       @user = ""
