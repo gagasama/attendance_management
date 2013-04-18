@@ -1,25 +1,37 @@
 AttendanceManagement::Application.routes.draw do
 
-  get "registrations/create"
+  #devise_for :users
 
-#  devise_for :attendance_management_users
-  devise_for :attendance_management_users, :controllers => {
-	  :sessions => "attendance_management_users/sessions",
-          :registrations => "attendance_management_users/registrations",
-          :passwords => "users/passwords"
-           }
-  get "user/index"
-  get "user/show"
-  post "user/regist_attendance_time"
-  post "user/regist_leaving_time"
- 
-#  devise_scope :attendance_management_users do
-#    get "sign_in", :to => "devise/sessions#new"
-#    get "sign_up", :to => "devise/sessions#create"
-#  end
+  # devise_for :users
+
+  #  get "registrations/create"
+
+  #  devise_for :attendance_management_users
+  #  devise_for :attendance_management_users, :controllers => {
+  #    :sessions => "attendance_management_users/sessions",
+  #    :registrations => "attendance_management_users/registrations",
+  #    :passwords => "users/passwords"
+  #  }
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+  devise_scope :user do
+    get 'sign_in', :to => 'devise/sessions#new', :as => :new_user_session
+    get 'sign_out', :to => 'devise/sessions#destroy', :as => :destroy_user_session
+    #get 'users/auth/google_oauth2' => 'users/omniauth_callbacks#passthru' 
+    get "user/index"
+    get "user/show"
+    root :to => "user#show"
+  end
+
+  #  get "user/show"
+  #  post "user/regist_attendance_time"
+  #  post "user/regist_leaving_time"
+  #user_omniauth_authorize_path(:google_oauth2) 
+  #  devise_scope :attendance_management_users do
+  #    get "sign_in", :to => "devise/sessions#new"
+  #    get "sign_up", :to => "devise/sessions#create"
+  #  end
   # The priority is based upon order of creation:
   # first created -> highest priority.
-  root :to => "user#index"
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'
   # Keep in mind you can assign values other than :controller and :action

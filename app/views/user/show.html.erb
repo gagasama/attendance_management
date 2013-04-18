@@ -1,12 +1,12 @@
 <%= flash[:non_exist] %>
-<%= "#{@user.lastname} #{@user.firstname}" %>
+<%= "#{@user.email}" %>
 <br/>
  <% if @attendance_time.blank? %>
    <%= button_to "出勤時間送信", {:action => "regist_attendance_time"}, :remote => true, 
   :id => "attendance_button" %>
        <div id="attendance_time"></div>
  <% else %>
-   <%= @attendance_time.time %>
+   出勤時間　<%= @attendance_time.time.strftime("%H:%M") %>
  <% end %>
      <#% 出勤時間をクリックすると修正することができる。#>
      <#% このへんに時計を置く%>
@@ -15,3 +15,4 @@
      <%= button_to "退勤時間送信", :action => "regist_leaving_time", :remote => true %>
    <% end %>
    <%= link_to "Sign Out", destroy_attendance_management_user_session_path, :method => :delete %>
+   <%#= link_to "Sign in with Google", user_omniauth_authorize_path(:google_oauth2) %>

@@ -26,6 +26,8 @@ end
 
 gem 'factory_girl'
 gem 'devise'
+gem 'omniauth-google-oauth2'
+gem "oauth-plugin", ">= 0.4.0.rc2"
 
 group :production do
 gem 'pg'
