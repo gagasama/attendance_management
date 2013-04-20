@@ -25,9 +25,7 @@ group :test do
 end
 
 gem 'factory_girl'
-gem 'devise'
 gem 'omniauth-google-oauth2'
-gem "oauth-plugin", ">= 0.4.0.rc2"
 
 group :production do
 gem 'pg'
@@ -38,7 +36,7 @@ end
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
-
+  gem 'jquery-ui-rails'
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer', :platforms => :ruby
 
@@ -46,6 +44,7 @@ group :assets do
 end
 
 gem 'jquery-rails'
+gem 'jquery-ui-themes'
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

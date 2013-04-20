@@ -12,19 +12,20 @@ AttendanceManagement::Application.routes.draw do
   #    :registrations => "attendance_management_users/registrations",
   #    :passwords => "users/passwords"
   #  }
-  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
-  devise_scope :user do
-    get 'sign_in', :to => 'devise/sessions#new', :as => :new_user_session
-    get 'sign_out', :to => 'devise/sessions#destroy', :as => :destroy_user_session
-    #get 'users/auth/google_oauth2' => 'users/omniauth_callbacks#passthru' 
-    get "user/index"
-    get "user/show"
-    root :to => "user#show"
-  end
-
+  #devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+  #devise_for :users, :controllers => { :" }
+  #devise_scope :user do
+  #  get 'sign_in', :to => 'devise/sessions#new', :as => :new_user_session
+  #  get 'sign_out', :to => 'devise/sessions#destroy', :as => :destroy_user_session
+  #get 'users/auth/google_oauth2' => 'users/omniauth_callbacks#passthru' 
+  get "user/index"
   #  get "user/show"
-  #  post "user/regist_attendance_time"
-  #  post "user/regist_leaving_time"
+  root :to => "user#show"
+  #end
+  match "/auth/google_login/callback" => "user/sessions#create"
+  match "/signout" => "user/sessions#destroy", :as => :signout
+  post "user/regist_attendance_time"
+  post "user/regist_leaving_time"
   #user_omniauth_authorize_path(:google_oauth2) 
   #  devise_scope :attendance_management_users do
   #    get "sign_in", :to => "devise/sessions#new"

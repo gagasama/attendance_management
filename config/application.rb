@@ -59,12 +59,5 @@ module AttendanceManagement
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
     config.assets.initialize_on_precompile = false
-    Rails.application.config.middleware.use OmniAuth::Builder do
-      provider :google_oauth2, ENV["139636662301-3m61n5v8f06teis4gnlvdgdmrfn70nuv.apps.googleusercontent.com"], ENV["hkim5qH4lUMJPvqyM5YKt3jV"],
-	{
-	:scope => "userinfo.email",
-	:approval_prompt => "auto"
-      }
-    end
   end
 end

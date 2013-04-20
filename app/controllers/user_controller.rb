@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-class UserController < Devise::OmniauthCallbacksController 
+class UserController < ApplicationController 
 
   def index
     @users = User.all(:select => "email")
@@ -7,9 +7,9 @@ class UserController < Devise::OmniauthCallbacksController
 
   def show
     logger.debug "session : " + session.inspect
-    logger.debug "user  : #{userinfo.email }"
+    logger.debug "user  : #{session["devise.google_data"]}"
     logger.debug "params : #{params.inspect}"
- 
+    @user = current_user 
     # @attendance_time = AttendanceTime.find_by_user_id(current_user.id) 
   end
 
@@ -24,9 +24,5 @@ class UserController < Devise::OmniauthCallbacksController
     @leaving_time = current_user.create_leaving_time  
   end
 
-  private
-  def current_user
-    current_user
-  end
 
 end
