@@ -11,27 +11,40 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130420061542) do
+ActiveRecord::Schema.define(:version => 20130426131728) do
 
-  create_table "attendance_times", :force => true do |t|
-    t.integer  "user_id"
-    t.date     "date"
-    t.time     "time"
+  create_table "attendance_categories", :force => true do |t|
+    t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
 
-  add_index "attendance_times", ["user_id"], :name => "index_attendance_times_on_user_id"
-
-  create_table "leaving_times", :force => true do |t|
+  create_table "attendance_days", :force => true do |t|
     t.integer  "user_id"
     t.date     "date"
-    t.time     "time"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.integer  "attendance_category_id"
+    t.time     "clock_in"
+    t.time     "clock_out"
+    t.time     "break_time"
+    t.text     "remarks"
+    t.datetime "created_at",             :null => false
+    t.datetime "updated_at",             :null => false
   end
 
-  add_index "leaving_times", ["user_id"], :name => "index_leaving_times_on_user_id"
+  add_index "attendance_days", ["attendance_category_id"], :name => "index_work_days_on_attendance_category_id"
+  add_index "attendance_days", ["user_id"], :name => "index_work_days_on_user_id"
+
+  create_table "non_work_days", :force => true do |t|
+    t.integer  "user_id"
+    t.date     "date"
+    t.integer  "attendance_category_id"
+    t.text     "remarks"
+    t.datetime "created_at",             :null => false
+    t.datetime "updated_at",             :null => false
+  end
+
+  add_index "non_work_days", ["attendance_category_id"], :name => "index_non_work_days_on_attendance_category_id"
+  add_index "non_work_days", ["user_id"], :name => "index_non_work_days_on_user_id"
 
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :null => false

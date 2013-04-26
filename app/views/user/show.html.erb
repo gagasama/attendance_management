@@ -1,43 +1,69 @@
-</style>
-<%= flash[:non_exist] %>
-<% if @user.present? %>
-       <%= "#{@user.email}" %>
+<% if @current_user.present? %>
+       <%= "#{@current_user.email}" %>
        <br/>
-       <% if @attendance_time.blank? %>
-	      <%= button_to "出勤時間送信", {:action => "regist_attendance_time"}, :remote => true, 
-		:id => "attendance_button" %>
-	    <div id="attendance_time"></div>
-	  <% else %>
-	    出勤時間　<%= @attendance_time.time.strftime("%H:%M") %>
+        <%= find_today_attendance %>
+        <%= clock_in_time = @today_attendance.clock_in if @today_attendance.present? %> 
+        <% if clock_in_time.blank? %>
+	  <%= button_to "出勤時間送信", {:action => "clock_in", :time => Time.now, :date => Date.today}, :remote => true, 
+	                 :id => "clock_in_button" %>
+	<% else %>
+	   <%= @today_attendance.clock_in.strftime("出勤 %H時%M分%S秒")%>
 	<% end %>
-	<#% 出勤時間をクリックすると修正することができる。#>
-	<#% このへんに時計を置く%>
-      <br/>
-      <% if @leaving_time.blank? %>
-	<%= button_to "退勤時間送信", :action => "regist_leaving_time", :remote => true %>
+
+        <%= clock_out_time = @today_attendance.clock_out if @today_attendance.present? %> 
+	<% if clock_out_time.blank? %>
+	  <%= button_to "退勤時間送信", 
+	    {:action => "clock_out", :time => Time.now, :date => Date.today}, :remote => true, 
+	                 :id => "clock_out_button" %>
+	<% else %>
+	   <%= @today_attendance.clock_out.strftime("退勤 %H時%M分%S秒")%>
+	<% end %>
+	<br/>
+
+	<%= link_to "Sign Out", signout_path , :method => :delete %>
       <% end %>
-      <%= link_to "Sign Out", signout_path , :method => :delete %>
-    <% end %>
-    <%= link_to "Sign in with Google", "/auth/google_login"%>
-    <script>
-      $(function() {
-	$( "#tabs" ).tabs();
-      });
-    </script>
-    <div id="tabs">
-      <ul>
-	<li><a href="#tabs-1">Nunc tincidunt</a></li>
-	<li><a href="#tabs-2">Proin dolor</a></li>
-	<li><a href="#tabs-3">Aenean lacinia</a></li>
-      </ul>
-      <div id="tabs-1">
-	<p>Proin elit arcu, rutrum commodo, vehicula tempus, commodo a, risus. Curabitur nec arcu. Donec sollicitudin mi sit amet mauris. Nam elementum quam ullamcorper ante. Etiam aliquet massa et lorem. Mauris dapibus lacus auctor risus. Aenean tempor ullamcorper leo. Vivamus sed magna quis ligula eleifend adipiscing. Duis orci. Aliquam sodales tortor vitae ipsum. Aliquam nulla. Duis aliquam molestie erat. Ut et mauris vel pede varius sollicitudin. Sed ut dolor nec orci tincidunt interdum. Phasellus ipsum. Nunc tristique tempus lectus.</p>
-      </div>
-      <div id="tabs-2">
-	<p>Morbi tincidunt, dui sit amet facilisis feugiat, odio metus gravida ante, ut pharetra massa metus id nunc. Duis scelerisque molestie turpis. Sed fringilla, massa eget luctus malesuada, metus eros molestie lectus, ut tempus eros massa ut dolor. Aenean aliquet fringilla sem. Suspendisse sed ligula in ligula suscipit aliquam. Praesent in eros vestibulum mi adipiscing adipiscing. Morbi facilisis. Curabitur ornare consequat nunc. Aenean vel metus. Ut posuere viverra nulla. Aliquam erat volutpat. Pellentesque convallis. Maecenas feugiat, tellus pellentesque pretium posuere, felis lorem euismod felis, eu ornare leo nisi vel felis. Mauris consectetur tortor et purus.</p>
-      </div>
-      <div id="tabs-3">
-	<p>Mauris eleifend est et turpis. Duis id erat. Suspendisse potenti. Aliquam vulputate, pede vel vehicula accumsan, mi neque rutrum erat, eu congue orci lorem eget lorem. Vestibulum non ante. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce sodales. Quisque eu urna vel enim commodo pellentesque. Praesent eu risus hendrerit ligula tempus pretium. Curabitur lorem enim, pretium nec, feugiat nec, luctus a, lacus.</p>
-	<p>Duis cursus. Maecenas ligula eros, blandit nec, pharetra at, semper at, magna. Nullam ac lacus. Nulla facilisi. Praesent viverra justo vitae neque. Praesent blandit adipiscing velit. Suspendisse potenti. Donec mattis, pede vel pharetra blandit, magna ligula faucibus eros, id euismod lacus dolor eget odio. Nam scelerisque. Donec non libero sed nulla mattis commodo. Ut sagittis. Donec nisi lectus, feugiat porttitor, tempor ac, tempor vitae, pede. Aenean vehicula velit eu tellus interdum rutrum. Maecenas commodo. Pellentesque nec elit. Fusce in lacus. Vivamus a libero vitae lectus hendrerit hendrerit.</p>
-      </div>
-    </div>
+      <%= link_to "Sign in with Google", "/auth/google_login"%>
+      <div id="tabs">
+	<ul>
+	  <li><a href="#tabs-3">Nunc tincidunt</a></li>
+	  <li><a href="#tabs-2">Proin dolor</a></li>
+	  <li><a href="#tabs-1">Aenean lacinia</a></li>
+	</ul>
+	<div id="tabs-1">
+	  <p>Proin elit arcu, rutrum commodo, vehicula tempus, commodo a, risus. Curabitur nec arcu. Donec sollicitudin mi sit amet mauris. Nam elementum quam ullamcorper ante. Etiam aliquet massa et lorem. Mauris dapibus lacus auctor risus. Aenean tempor ullamcorper leo. Vivamus sed magna quis ligula eleifend adipiscing. Duis orci. Aliquam sodales tortor vitae ipsum. Aliquam nulla. Duis aliquam molestie erat. Ut et mauris vel pede varius sollicitudin. Sed ut dolor nec orci tincidunt interdum. Phasellus ipsum. Nunc tristique tempus lectus.</p>
+	</div>
+	<div id="tabs-2">
+	  出勤
+	  休日
+	  有給休暇
+	  半休
+	  特別休暇
+	  産前産後休暇
+	  育児休暇
+	  生理休暇
+	</div>
+	<div id="tabs-3">
+	  <table>
+	    <thead>
+	      <tr>
+		<th>日付</th>
+		<th>区分</th>
+		<th>出勤時間</th>
+		<th>退勤時間</th>
+		<th>休憩時間</th>
+		<th>備考</th>
+	      </tr>
+	      <tbody>
+		<% (Date.today.beginning_of_month..Date.today.end_of_month).each do |date| %> 
+		  <tr>
+		    <td><%=date.strftime("%d日(#{%w(日 月 火 水 木 金 土)[date.wday]})")%></td>
+		    <td></td>
+		    <td></td>
+		    <td></td>
+		    <td></td>
+		    <td></td>
+		  </tr>
+		<% end %>
+	      </tbody>
+	    </table>
+	  </div>

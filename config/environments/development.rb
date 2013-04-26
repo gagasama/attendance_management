@@ -33,5 +33,16 @@ AttendanceManagement::Application.configure do
   config.assets.compress = false
 
   # Expands the lines which load the assets
-  config.assets.debug = true
+  config.assets.debug = true 
+
+  #  config.gem 'bullet', :source => 'http://gemcutter.org'
+  config.after_initialize do
+    Bullet.enable = true #Bulletプラグインの有効/無効化
+    Bullet.alert = true #JavaScriptでの通知
+    Bullet.bullet_logger = true #ログ(Rails.root/log/bullet.log)の記録
+    Bullet.console = true #ブラウザのコンソールログに記録(要Webkit or Firebug)
+#    Bullet.growl = true #Growlでの通知
+    Bullet.rails_logger = true #警告をRailsのログに記録
+#    Bullet.disable_browser_cache = true #ブラウザキャッシュの無効化
+  end
 end

@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  user: 
+  date: 2013-04-21
+  attendance_category: 
+  clock_in: 2013-04-21 18:27:16
+  clock_out: 2013-04-21 18:27:16
+  break_time: 2013-04-21 18:27:16
+  remarks: MyText
+
+two:
+  user: 
+  date: 2013-04-21
+  attendance_category: 
+  clock_in: 2013-04-21 18:27:16
+  clock_out: 2013-04-21 18:27:16
+  break_time: 2013-04-21 18:27:16
+  remarks: MyText

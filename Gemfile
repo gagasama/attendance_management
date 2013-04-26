@@ -12,6 +12,8 @@ group :development, :test do
   gem 'pry-doc'
   gem 'pry-rails'
   gem 'annotate'
+  gem 'bullet'
+  gem 'ruby-growl'
 end
 
 group :test do
@@ -26,6 +28,9 @@ end
 
 gem 'factory_girl'
 gem 'omniauth-google-oauth2'
+gem 'activerecord-import'
+gem 'google-api-client'
+gem 'rest-client'
 
 group :production do
 gem 'pg'

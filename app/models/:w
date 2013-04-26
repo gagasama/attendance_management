@@ -1,0 +1,35 @@
+# -*- encoding: utf-8 -*-
+class UserController < ApplicationController 
+  before_filter :current_user
+  def index
+    @users = User.all(:select => "email")
+  end
+
+  def show
+    if @current_user.present?
+      @monthly_attendances = @current_user.find_month_work_days(Date.today) 
+    end
+  end
+
+
+  def clock_in 
+    unless work_day =  @current_user.work_days.exists?(:date => params[:date])
+      binding.pry
+      @current_user.work_days.create(:date => params[:date], :clock_in => params[:time] )
+    else
+      work_day.update(:date => params[:date], :clock_in => params[:time] )
+    end
+    render "user/show"
+  end
+
+  def clock_out 
+    unless work_day =  @current_user.work_days.exists?(:date => params[:date])
+      current_user.work_days.create(:date => params[:date], :clock_out => params[:time] )
+    else
+      work_day.update(:date => params[:date], :clock_out => params[:time] )
+    end
+    render "user/show"  
+  end
+
+
+end
