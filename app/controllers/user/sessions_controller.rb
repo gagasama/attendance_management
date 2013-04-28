@@ -2,10 +2,17 @@ class User::SessionsController < ApplicationController
   def create
     auth = request.env["omniauth.auth"]
     logger.debug "auth : #{auth.inspect}"
+
+    if Rails.env.production?
+      # For PostgreSQL. You have a nummeric Unix Timestamp value here – whereas the PostgreSQL data type      # timestamp obviously has to be given in another format.
+      expires_at = Time.at(auth['credentials'].expires_at)
+    else #For other DataBese
+      expires_at = auth["credentials"]["expires_at"] 
+    end
     user = User.where(:provider => auth["provider"], :uid => auth["uid"]).first_or_initialize(
       :refresh_token => auth["credentials"]["refresh_token"],
       :access_token => auth["credentials"]["token"],
-      :expires => auth["credentials"]["expires_at"],
+      :expires => expires_at, 
       :name => auth["info"]["name"],
       :email => auth["info"]["email"],
     )
