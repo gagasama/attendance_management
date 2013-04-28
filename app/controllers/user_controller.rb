@@ -14,25 +14,28 @@ class UserController < ApplicationController
 
   def clock_in
     user_attendance = @current_user.attendance_days
-    today_attendance = user_attendance.find_by_date(params[:date])
-    unless user_attendance.exists?(:date => params[:date])
-      user_attendance.create!(:date => params[:date], :clock_in => params[:time] )
+    today_attendance = user_attendance.find_by_date(params[:datetime])
+ 
+    unless today_attendance 
+      user_attendance.create!(:date => params[:datetime], :clock_in => params[:datetime] )
     else
-      today_attendance.update_attributes!(:date => params[:date], :clock_in => params[:time] )
+      today_attendance.update_attributes!(:date => params[:datetime], :clock_in => params[:datetime] )
     end
-    @clock_in_time = params[:time]
+    @clock_in_time = params[:datetime]
+    #render :nothing => true
+    render "user/show", :json => {:time => params[:datetime]}
   end
 
   def clock_out
     user_attendance = @current_user.attendance_days
-    today_attendance = user_attendance.find_by_date(params[:date])
-    unless user_attendance.exists?(:date => params[:date])
-      user_attendance.create!(:date => params[:date], :clock_out => params[:time] )
+    today_attendance = user_attendance.find_by_date(params[:datetime])
+    unless today_attendance
+      status = user_attendance.create!(:date => params[:datetime], :clock_out => params[:datetime] )
     else
-      today_attendance.update_attributes!({:date => params[:date], :clock_out => params[:time]})
+      status = today_attendance.update_attributes!({:date => params[:datetime], :clock_out => params[:datetime]})
 
     end
-    @clock_out_time = params[:time]
+    @clock_out_time = params[:datetime]
   end
 
 

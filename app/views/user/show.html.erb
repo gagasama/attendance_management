@@ -4,8 +4,7 @@
         <%= find_today_attendance %>
         <%= clock_in_time = @today_attendance.clock_in if @today_attendance.present? %> 
         <% if clock_in_time.blank? %>
-	  <%= button_to "出勤時間送信", {:action => "clock_in", :time => Time.now, :date => Date.today}, :remote => true, 
-	                 :id => "clock_in_button" %>
+	  <button id="clock_in_button">出勤時間送信</button>
 	<% else %>
 	   <%= @today_attendance.clock_in.strftime("出勤 %H時%M分%S秒")%>
 	<% end %>

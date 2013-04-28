@@ -35,6 +35,9 @@ AttendanceManagement::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = true 
 
+  # avoid ajax call for the second time in a row
+  config.serve_static_assets = false
+
   #  config.gem 'bullet', :source => 'http://gemcutter.org'
   config.after_initialize do
     Bullet.enable = true #Bulletプラグインの有効/無効化
