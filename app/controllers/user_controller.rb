@@ -14,7 +14,7 @@ class UserController < ApplicationController
 
   def clock_in
     user_attendance = @current_user.attendance_days
-    today_attendance = user_attendance.find_by_date(params[:datetime])
+    today_attendance = user_attendance.find_by_date(params[:datetime].to_date)
  
     unless today_attendance 
       user_attendance.create!(:date => params[:datetime], :clock_in => params[:datetime] )
