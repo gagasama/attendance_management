@@ -14,6 +14,7 @@ group :development, :test do
   gem 'annotate'
   gem 'bullet'
   gem 'ruby-growl'
+  gem 'activerecord-import'
 end
 
 group :test do
@@ -29,13 +30,8 @@ end
 
 gem 'factory_girl'
 gem 'omniauth-google-oauth2'
-gem 'activerecord-import'
-gem 'google-api-client'
-gem 'rest-client'
 
-group :production do
 gem 'pg'
-end
 
 # Gems used only for assets and not required
 # in production environments by default.
